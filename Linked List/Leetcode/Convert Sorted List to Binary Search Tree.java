@@ -66,3 +66,47 @@ class Solution
         return root;
     }
 }
+
+// T(n) = O(n) , space = O(logn)
+//Insert nodes in the given list order 
+class Solution 
+{
+    ListNode head_orig = null;
+    int getSize(ListNode head)
+    {
+        if(head == null)
+            return 0;
+        int len = 0;
+        while(head != null)
+        {
+            len++;
+            head = head.next;
+        }
+        return len;
+    }
+    public TreeNode sortedListToBST(ListNode head) 
+    {
+        if(head == null)
+            return null;
+        if(head.next == null)
+        {
+            TreeNode t = new TreeNode(head.val);
+            return t;
+        }
+        int n = getSize(head);
+        head_orig = head;
+        return helper(0,n-1);
+    }
+    TreeNode helper(int start,int end)
+    {
+        if(start > end)
+            return null;
+        int m = start+(end-start)/2;
+        TreeNode l = helper(start,m-1);
+        TreeNode root = new TreeNode(head_orig.val);
+        root.left = l;
+        head_orig = head_orig.next;
+        root.right = helper(m+1,end);
+        return root;
+    }
+}
