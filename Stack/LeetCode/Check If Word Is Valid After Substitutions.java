@@ -25,14 +25,14 @@ class Solution {
             {
                 if(aux.isEmpty()||aux.peek() != 'a')
                     return false;
+                aux.pop();
                 aux.push(ch);
             }
             else
             {
                 if(aux.isEmpty()||aux.peek() != 'b')
                     return false;
-                 while(!aux.isEmpty() && aux.peek() != 'a')
-                     aux.pop();
+                
                 aux.pop();
             }
         }
