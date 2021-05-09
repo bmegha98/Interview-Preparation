@@ -44,16 +44,22 @@ class Solution
         //code here
         if(n < 2)
             return;
-        int tmp[] = new int[n];
         buildHeap(arr,n);
-        int size = n;
-        for(int i =0;i<n;i++) {
-            tmp[i] = arr[0];
-            arr[0] = arr[size-1];
-            heapify(arr,--size,0);
+        
+        for(int i =n-1;i>0;i--) {
+            int tmp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = tmp;
+            heapify(arr,i,0);
         }
         
-        for(int j =0;j<n;j++)
-            arr[j] = tmp[j];
+        int start = 0, end = n-1;
+        while(start < end) {
+            int tmp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = tmp;
+            start++;
+            end--;
+        }
     }
  }
