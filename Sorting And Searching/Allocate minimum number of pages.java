@@ -22,6 +22,8 @@ Therefore, the minimum of these cases is
 113, which is selected as the output.
 */
 
+//T(n) = O(log(sum(a)))
+
 class Solution 
 {
     //Function to find minimum number of pages.
