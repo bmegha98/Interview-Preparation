@@ -75,3 +75,35 @@ class Solution {
         return T[0][n-1];
     }
 }
+
+class Solution {
+    public int mctFromLeafValues(int[] arr) {
+        int n = arr.length;
+        if(n == 2)
+            return arr[0]*arr[1];
+        
+        int[][] maxL = new int[n][n];
+        for(int i=0;i<n;i++){
+            maxL[i][i] = arr[i];
+            for(int j = i+1;j<n;j++)
+                maxL[i][j] = Math.max(maxL[i][j-1],arr[j]);
+        }
+        
+        int[][] T = new int[n][n];
+        
+        for(int j = 0;j<n;j++) {
+            for(int i = j;i>=0;i--) {
+                if(i == j) {
+                    T[i][j] = 0;
+                    continue;
+                }
+                
+                T[i][j] = Integer.MAX_VALUE;
+                for(int k = i;k<j;k++)
+                    T[i][j] = Math.min(T[i][j], T[i][k]+T[k+1][j]+
+                                             maxL[i][k]*maxL[k+1][j]);
+            }
+        }
+        return T[0][n-1];
+    }
+}
