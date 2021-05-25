@@ -45,3 +45,33 @@ class Solution {
         return res;
     }
 }
+
+//DP Solution
+class Solution {
+    public int mctFromLeafValues(int[] arr) {
+        int n = arr.length;
+        if(n == 2)
+            return arr[0]*arr[1];
+        
+        int[][] maxL = new int[n][n];
+        for(int i=0;i<n;i++){
+            maxL[i][i] = arr[i];
+            for(int j = i+1;j<n;j++)
+                maxL[i][j] = Math.max(maxL[i][j-1],arr[j]);
+        }
+        
+        int[][] T = new int[n+1][n+1];
+        
+        for(int w = 2;w<=n;w++) {
+            for(int left = 0;left <= n-w;left++) {
+                int right = left+w-1;
+                
+                T[left][right] = Integer.MAX_VALUE;
+                for(int i = left;i<right;i++)
+                    T[left][right] = Math.min(T[left][right], T[left][i]+T[i+1][right]+
+                                             maxL[left][i]*maxL[i+1][right]);
+            }
+        }
+        return T[0][n-1];
+    }
+}
