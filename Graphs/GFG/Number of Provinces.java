@@ -6,7 +6,7 @@ Your Task:
 You don't need to read input or print anything. Your task is to complete the function numProvinces() which takes an integer V and an adjacency matrix adj as input 
 and returns the number of provinces. adj[i][j] = 1, if nodes i and j are connected and adj[i][j] = 0, if not connected.
 */
-
+//Time = O(V^2) , Space = O(V)
 class Solution {
     static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
         
