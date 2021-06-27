@@ -7,6 +7,32 @@ Example 1:
 Input: arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
 Output: [2,2,2,1,4,3,3,9,6,7,19]
 */
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        Map<Integer,Integer> aux = new HashMap<>();
+        List<Integer> tmp = new ArrayList<>();
+        for(int i=0;i<arr2.length;i++)
+                if(!aux.containsKey(arr2[i]))
+                    aux.put(arr2[i],i);
+        
+        for(int ele : arr1)
+            tmp.add(ele);
+        Collections.sort(tmp, (a,b)->{
+            boolean f = aux.containsKey(a), s = aux.containsKey(b);
+            if(f && s)
+                return aux.get(a)-aux.get(b);
+            if(f && !s)
+                return -1;
+            if(!f && s)
+                return 1;
+            return a-b;
+        });
+        
+        for(int i=0;i<tmp.size();i++)
+            arr1[i] = tmp.get(i);
+        return arr1;
+    }
+}
 
 class Solution {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
