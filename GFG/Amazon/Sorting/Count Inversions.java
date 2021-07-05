@@ -100,3 +100,49 @@ class Solution
         return count;
     }  
 }
+
+//Or
+public class CountInversions {
+    static long count = 0;
+    static long inversionCount(long arr[], long n)
+    {
+      mergeSort(arr,0,(int)(n-1));
+      return count;
+    }
+    static void mergeSort(long arr[], int l, int r)
+    {
+      if(l >= r)
+        return;
+      int m = l+(r-l)/2;
+      mergeSort(arr,l,m);
+      mergeSort(arr,m+1,r);
+      merge(arr,l,m,r);
+    }
+    static void merge(long arr[], int l, int m, int r)
+    {
+      int n1 = m-l+1, n2 = r-m;
+      long[] A = new long[n1];
+      long[] B = new long[n2];
+
+      for(int i=l;i<=m;i++)
+        A[i-l] = arr[i];
+
+      for(int i=m+1;i<=r;i++)
+        B[i-m-1] = arr[i];
+
+      int i = 0, j = 0, k = l;
+      while(i<n1 && j<n2) {
+        if(A[i] <= B[j])
+          arr[k++] = A[i++];
+        else {
+          count += (n1-i);
+          arr[k++] = B[j++];
+        }
+      }
+
+      while(i<n1)
+        arr[k++] = A[i++];
+      while(j<n2)
+        arr[k++] = B[j++];
+    }
+}
