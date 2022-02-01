@@ -53,3 +53,25 @@ class Solution {
 }
 
 //Without using Set
+class Solution {
+    List<List<Integer>> res;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        res = new ArrayList<>();
+        int n = nums.length;
+        if(n == 0)
+            return res;
+        Arrays.sort(nums);
+        helper(nums, 0, n, new ArrayList<>());
+        return res;
+    }
+    private void helper(int[] A, int ind, int n, List<Integer> tmp) {
+        res.add(new ArrayList<>(tmp));
+        for(int i=ind;i<n;i++) {
+            if(i>ind && A[i] == A[i-1])
+                continue;
+            tmp.add(A[i]);
+            helper(A,i+1,n,tmp);
+            tmp.remove(tmp.size()-1);
+        }
+    }
+}
