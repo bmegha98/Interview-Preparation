@@ -38,7 +38,7 @@ Constraints:
 At most 100 calls will be made to push, pop, top, and empty.
 All the calls to pop and top are valid.
 */
-
+//Using two queues
 class MyStack {
 
     Queue<Integer> q1,q2;
@@ -53,6 +53,37 @@ class MyStack {
         q1.add(x);
         while(!q2.isEmpty())
             q1.add(q2.poll());
+    }
+    
+    public int pop() {
+        return q1.poll();
+    }
+    
+    public int top() {
+        return q1.peek();
+    }
+    
+    public boolean empty() {
+        return q1.isEmpty();
+    }
+}
+
+//Using 1 queue
+class MyStack {
+
+    Queue<Integer> q1,q2;
+    public MyStack() {
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
+    }
+    
+    public void push(int x) {
+        int n = q1.size();
+        q1.add(x);
+        while(n > 0) {
+            q1.add(q1.poll());
+            n--;
+        }
     }
     
     public int pop() {
